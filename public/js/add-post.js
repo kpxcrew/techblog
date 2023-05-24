@@ -1,9 +1,10 @@
 async function newFormHandler(event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    const title = document.querySelector('input[name="post-title"]').value;
-    const content = document.querySelector('textarea[name="post-content"]').value;
+  const title = document.querySelector('input[name="post-title"]').value;
+  const content = document.querySelector('textarea[name="post-content"]').value;
 
+  try {
     const response = await fetch(`/api/post`, {
       method: "POST",
       body: JSON.stringify({
@@ -20,8 +21,12 @@ async function newFormHandler(event) {
     } else {
       alert(response.statusText);
     }
+  } catch (err) {
+    console.log(err);
+    alert("An error occurred. Please try again.");
   }
+}
 
-  document
-    .querySelector(".new-post-form")
-    .addEventListener("submit", newFormHandler);
+document
+  .querySelector(".new-post-form")
+  .addEventListener("submit", newFormHandler);

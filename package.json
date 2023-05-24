@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/samc995/-MVC--Challenge-Tech-Blog-14.git"
+    "url": "git+https://github.com/kpxcrew/techblog.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/samc995/-MVC--Challenge-Tech-Blog-14/issues"
+    "url": "https://github.com/kpxcrew/techblog/issues"
   },
-  "homepage": "https://github.com/samc995/-MVC--Challenge-Tech-Blog-14#readme",
+  "homepage": "https://github.com/kpxcrew/techblog#readme",
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
     "bcrypt": "^4.0.1",

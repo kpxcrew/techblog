@@ -4,7 +4,6 @@ const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
-    // Get all projects and JOIN with user data
     const postData = await Post.findAll({
       include: [
         {
@@ -14,10 +13,8 @@ router.get('/', async (req, res) => {
       ],
     });
 
-    // Serialize data so the template can read it
     const posts = postData.map((post) => post.get({ plain: true }));
 
-    // Pass serialized data and session flag into template
     res.render('homepage', { 
       posts, 
       logged_in: req.session.logged_in 
@@ -32,8 +29,11 @@ router.get('/post/:id', async (req, res) => {
     const postData = await Post.findByPk(req.params.id, {
       include: [
         {
-          model: User, Comment,
+          model: User,
           attributes: ['name'],
+        },
+        {
+          model: Comment,
         },
       ],
     });
@@ -41,7 +41,7 @@ router.get('/post/:id', async (req, res) => {
     const post = postData.get({ plain: true });
 
     res.render('singlepost', {
-      ...project,
+      post,
       logged_in: req.session.logged_in
     });
   } catch (err) {
@@ -49,20 +49,17 @@ router.get('/post/:id', async (req, res) => {
   }
 });
 
-// Use withAuth middleware to prevent access to route
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
-   const postData = await Post.findAll ({
-    where: {
-      user_id: req.session.user_id
-    }
-   })
+    const postData = await Post.findAll({
+      where: {
+        user_id: req.session.user_id
+      }
+    });
 
-    // Best way to send things over is to use the find all structure
-
-    const posts = postData.map (post => post.get({
+    const posts = postData.map(post => post.get({
       plain: true,
-    }))
+    }));
 
     res.render('dashboard', {
       posts,
@@ -72,12 +69,8 @@ router.get('/dashboard', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
-// This all needs to get fixed
-
-
 
 router.get('/login', (req, res) => {
-  // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
     res.redirect('/profile');
     return;
@@ -86,9 +79,9 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
-router.get('/new', withAuth, (req, res)=> {
+router.get('/new', withAuth, (req, res) => {
   res.render("newPost");
-})
+});
 
 router.get('/edit/:id', async (req, res) => {
   try {
