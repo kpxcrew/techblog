@@ -60,5 +60,5 @@ THEN I am able to view comments but I am prompted to log in again before I can a
 Utilizing the application is simple
 
 * Open the app using this link
-    <https://davetechblog.herokuapp.com/>
+   [ <https://kpxcrew.github.io/techblog/>]
 * Play around!
